@@ -25,5 +25,8 @@ namespace Veterinary.Web.Data.Entities
         [Display(Name = "Is Available?")]
         public bool IsAvailable { get; set; }
 
+        public Owner Owner { get; set; }
+        public Pet Pet { get; set; }
+
     }
 }

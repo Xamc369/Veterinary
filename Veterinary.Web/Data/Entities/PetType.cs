@@ -15,5 +15,8 @@ namespace Veterinary.Web.Data.Entities
         [Required(ErrorMessage = "The field {0} is mandatory.")]
         public string Name { get; set; }
 
+        //es para la relacion a muchas desde pet
+        public ICollection<Pet> Pets { get; set; }
+
     }
 }
