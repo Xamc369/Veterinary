@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,19 +11,25 @@ using Veterinary.Web.Data.Entities;
 
 namespace Veterinary.Web.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class OwnersController : Controller
     {
         private readonly DataContext _context;
 
+
         public OwnersController(DataContext context)
         {
+            //representacion de la conexion de la base de datos
             _context = context;
         }
 
         // GET: Owners
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.Owners.ToListAsync());
+            //el tolist ejecuta la consulta // con esta linea decimos inner join (o => o.User)
+            return View( _context.Owners
+                .Include(o => o.User)
+                .Include(o => o.Pets));
         }
 
         // GET: Owners/Details/5
@@ -33,7 +40,15 @@ namespace Veterinary.Web.Controllers
                 return NotFound();
             }
 
+            //estas instrucciones permiten hacer el inner join con otras tablas 
+            //relacionadas mediante linq
+            //es lo que se conoce una tabla maestro detalle doble
             var owner = await _context.Owners
+                .Include(o => o.User)
+                .Include(o => o.Pets)
+                .ThenInclude(p => p.PetType)
+                .Include(o => o.Pets)
+                .ThenInclude(p => p.Histories)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (owner == null)
             {
