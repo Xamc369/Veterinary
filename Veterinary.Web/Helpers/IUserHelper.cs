@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Veterinary.Web.Data.Entities;
 using System.Threading.Tasks;
-
+using Veterinary.Web.Models;
 
 namespace Veterinary.Web.Helpers
 {
-    interface IUserHelper
+   public interface IUserHelper
     {
         Task<User> GetUserByEmailAsync(string email);
 
@@ -17,6 +17,10 @@ namespace Veterinary.Web.Helpers
         Task AddUserToRoleAsync(User user, string roleName);
 
         Task<bool> IsUserInRoleAsync(User user, string roleName);
+
+        Task<SignInResult> LoginAsync(LoginViewModel model);
+
+        Task LogoutAsync();
 
     }
 }
