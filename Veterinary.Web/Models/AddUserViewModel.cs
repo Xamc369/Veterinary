@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Veterinary.Web.Models
 {
-    public class AddUserViewModel
+    public class AddUserViewModel : EditUserViewModel
     {
         [Display(Name = "Email")]
     	[Required(ErrorMessage = "The field {0} is mandatory.")]
