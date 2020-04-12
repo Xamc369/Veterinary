@@ -9,13 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Veterinary.Common", "Veteri
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Veterinary.Web", "Veterinary.Web\Veterinary.Web.csproj", "{1105706E-39A3-4912-BB39-99509939F9CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Veterinary.Prism", "Veterinary.Prism\Veterinary.Prism\Veterinary.Prism.csproj", "{8683DA37-429F-4C37-B949-95659FC4BF0D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Veterinary.Prism", "Veterinary.Prism\Veterinary.Prism\Veterinary.Prism.csproj", "{8683DA37-429F-4C37-B949-95659FC4BF0D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Veterinary.Prism.Android", "Veterinary.Prism\Veterinary.Prism.Android\Veterinary.Prism.Android.csproj", "{D3841B04-00EF-4EB3-8290-C12B0DDC4A47}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Veterinary.Prism.iOS", "Veterinary.Prism\Veterinary.Prism.iOS\Veterinary.Prism.iOS.csproj", "{3D38D1E9-67B6-4776-BAB7-A44BC16C04EC}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Veterinary.Prism.UWP", "Veterinary.Prism\Veterinary.Prism.UWP\Veterinary.Prism.UWP.csproj", "{C20283D2-DEAF-4577-B985-316BAD5102F2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -353,66 +351,6 @@ Global
 		{3D38D1E9-67B6-4776-BAB7-A44BC16C04EC}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
 		{3D38D1E9-67B6-4776-BAB7-A44BC16C04EC}.Release|x64.ActiveCfg = Release|iPhone
 		{3D38D1E9-67B6-4776-BAB7-A44BC16C04EC}.Release|x86.ActiveCfg = Release|iPhone
-		{C20283D2-DEAF-4577-B985-316BAD5102F2}.Ad-Hoc|Any CPU.ActiveCfg = Release|x86
-		{C20283D2-DEAF-4577-B985-316BAD5102F2}.Ad-Hoc|Any CPU.Build.0 = Release|x86
-		{C20283D2-DEAF-4577-B985-316BAD5102F2}.Ad-Hoc|Any CPU.Deploy.0 = Release|x86
-		{C20283D2-DEAF-4577-B985-316BAD5102F2}.Ad-Hoc|ARM.ActiveCfg = Release|ARM
-		{C20283D2-DEAF-4577-B985-316BAD5102F2}.Ad-Hoc|ARM.Build.0 = Release|ARM
-		{C20283D2-DEAF-4577-B985-316BAD5102F2}.Ad-Hoc|ARM.Deploy.0 = Release|ARM
-		{C20283D2-DEAF-4577-B985-316BAD5102F2}.Ad-Hoc|iPhone.ActiveCfg = Release|x86
-		{C20283D2-DEAF-4577-B985-316BAD5102F2}.Ad-Hoc|iPhone.Build.0 = Release|x86
-		{C20283D2-DEAF-4577-B985-316BAD5102F2}.Ad-Hoc|iPhone.Deploy.0 = Release|x86
-		{C20283D2-DEAF-4577-B985-316BAD5102F2}.Ad-Hoc|iPhoneSimulator.ActiveCfg = Release|x86
-		{C20283D2-DEAF-4577-B985-316BAD5102F2}.Ad-Hoc|iPhoneSimulator.Build.0 = Release|x86
-		{C20283D2-DEAF-4577-B985-316BAD5102F2}.Ad-Hoc|iPhoneSimulator.Deploy.0 = Release|x86
-		{C20283D2-DEAF-4577-B985-316BAD5102F2}.Ad-Hoc|x64.ActiveCfg = Release|x64
-		{C20283D2-DEAF-4577-B985-316BAD5102F2}.Ad-Hoc|x64.Build.0 = Release|x64
-		{C20283D2-DEAF-4577-B985-316BAD5102F2}.Ad-Hoc|x64.Deploy.0 = Release|x64
-		{C20283D2-DEAF-4577-B985-316BAD5102F2}.Ad-Hoc|x86.ActiveCfg = Release|x86
-		{C20283D2-DEAF-4577-B985-316BAD5102F2}.Ad-Hoc|x86.Build.0 = Release|x86
-		{C20283D2-DEAF-4577-B985-316BAD5102F2}.Ad-Hoc|x86.Deploy.0 = Release|x86
-		{C20283D2-DEAF-4577-B985-316BAD5102F2}.AppStore|Any CPU.ActiveCfg = Release|x86
-		{C20283D2-DEAF-4577-B985-316BAD5102F2}.AppStore|Any CPU.Build.0 = Release|x86
-		{C20283D2-DEAF-4577-B985-316BAD5102F2}.AppStore|Any CPU.Deploy.0 = Release|x86
-		{C20283D2-DEAF-4577-B985-316BAD5102F2}.AppStore|ARM.ActiveCfg = Release|ARM
-		{C20283D2-DEAF-4577-B985-316BAD5102F2}.AppStore|ARM.Build.0 = Release|ARM
-		{C20283D2-DEAF-4577-B985-316BAD5102F2}.AppStore|ARM.Deploy.0 = Release|ARM
-		{C20283D2-DEAF-4577-B985-316BAD5102F2}.AppStore|iPhone.ActiveCfg = Release|x86
-		{C20283D2-DEAF-4577-B985-316BAD5102F2}.AppStore|iPhone.Build.0 = Release|x86
-		{C20283D2-DEAF-4577-B985-316BAD5102F2}.AppStore|iPhone.Deploy.0 = Release|x86
-		{C20283D2-DEAF-4577-B985-316BAD5102F2}.AppStore|iPhoneSimulator.ActiveCfg = Release|x86
-		{C20283D2-DEAF-4577-B985-316BAD5102F2}.AppStore|iPhoneSimulator.Build.0 = Release|x86
-		{C20283D2-DEAF-4577-B985-316BAD5102F2}.AppStore|iPhoneSimulator.Deploy.0 = Release|x86
-		{C20283D2-DEAF-4577-B985-316BAD5102F2}.AppStore|x64.ActiveCfg = Release|x64
-		{C20283D2-DEAF-4577-B985-316BAD5102F2}.AppStore|x64.Build.0 = Release|x64
-		{C20283D2-DEAF-4577-B985-316BAD5102F2}.AppStore|x64.Deploy.0 = Release|x64
-		{C20283D2-DEAF-4577-B985-316BAD5102F2}.AppStore|x86.ActiveCfg = Release|x86
-		{C20283D2-DEAF-4577-B985-316BAD5102F2}.AppStore|x86.Build.0 = Release|x86
-		{C20283D2-DEAF-4577-B985-316BAD5102F2}.AppStore|x86.Deploy.0 = Release|x86
-		{C20283D2-DEAF-4577-B985-316BAD5102F2}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{C20283D2-DEAF-4577-B985-316BAD5102F2}.Debug|ARM.ActiveCfg = Debug|ARM
-		{C20283D2-DEAF-4577-B985-316BAD5102F2}.Debug|ARM.Build.0 = Debug|ARM
-		{C20283D2-DEAF-4577-B985-316BAD5102F2}.Debug|ARM.Deploy.0 = Debug|ARM
-		{C20283D2-DEAF-4577-B985-316BAD5102F2}.Debug|iPhone.ActiveCfg = Debug|x86
-		{C20283D2-DEAF-4577-B985-316BAD5102F2}.Debug|iPhoneSimulator.ActiveCfg = Debug|x86
-		{C20283D2-DEAF-4577-B985-316BAD5102F2}.Debug|x64.ActiveCfg = Debug|x64
-		{C20283D2-DEAF-4577-B985-316BAD5102F2}.Debug|x64.Build.0 = Debug|x64
-		{C20283D2-DEAF-4577-B985-316BAD5102F2}.Debug|x64.Deploy.0 = Debug|x64
-		{C20283D2-DEAF-4577-B985-316BAD5102F2}.Debug|x86.ActiveCfg = Debug|x86
-		{C20283D2-DEAF-4577-B985-316BAD5102F2}.Debug|x86.Build.0 = Debug|x86
-		{C20283D2-DEAF-4577-B985-316BAD5102F2}.Debug|x86.Deploy.0 = Debug|x86
-		{C20283D2-DEAF-4577-B985-316BAD5102F2}.Release|Any CPU.ActiveCfg = Release|x86
-		{C20283D2-DEAF-4577-B985-316BAD5102F2}.Release|ARM.ActiveCfg = Release|ARM
-		{C20283D2-DEAF-4577-B985-316BAD5102F2}.Release|ARM.Build.0 = Release|ARM
-		{C20283D2-DEAF-4577-B985-316BAD5102F2}.Release|ARM.Deploy.0 = Release|ARM
-		{C20283D2-DEAF-4577-B985-316BAD5102F2}.Release|iPhone.ActiveCfg = Release|x86
-		{C20283D2-DEAF-4577-B985-316BAD5102F2}.Release|iPhoneSimulator.ActiveCfg = Release|x86
-		{C20283D2-DEAF-4577-B985-316BAD5102F2}.Release|x64.ActiveCfg = Release|x64
-		{C20283D2-DEAF-4577-B985-316BAD5102F2}.Release|x64.Build.0 = Release|x64
-		{C20283D2-DEAF-4577-B985-316BAD5102F2}.Release|x64.Deploy.0 = Release|x64
-		{C20283D2-DEAF-4577-B985-316BAD5102F2}.Release|x86.ActiveCfg = Release|x86
-		{C20283D2-DEAF-4577-B985-316BAD5102F2}.Release|x86.Build.0 = Release|x86
-		{C20283D2-DEAF-4577-B985-316BAD5102F2}.Release|x86.Deploy.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
