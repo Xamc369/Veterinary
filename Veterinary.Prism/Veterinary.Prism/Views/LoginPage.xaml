@@ -5,24 +5,25 @@
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="Veterinary.Prism.Views.LoginPage"
              Title="{Binding Title}">
-    <StackLayout
+    <ScrollView>
+        <StackLayout
         Padding="10">
-        <Label
+            <Label
             Text="Email"/>
-        <Entry
+            <Entry
             Keyboard="Email"
             Placeholder="Enter your email..."
             Text="{Binding Email}"/>
-        <Label
+            <Label
             Text="Password"/>
-        <Entry
+            <Entry
             IsPassword="True"
             Placeholder="Enter your password..."
             Text="{Binding Password}"/>
-        <ActivityIndicator
+            <ActivityIndicator
             VerticalOptions="CenterAndExpand"
             IsRunning="{Binding IsRunning}"/>
-        <Button
+            <Button
             BorderRadius="23"
             BackgroundColor="Navy"
             TextColor="White"
@@ -30,5 +31,6 @@
             Command="{Binding LoginCommand}"
             HeightRequest="46"
             Text="Login"/>
-    </StackLayout>
+        </StackLayout>
+    </ScrollView>
 </ContentPage>

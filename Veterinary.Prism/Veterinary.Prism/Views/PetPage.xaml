@@ -7,7 +7,8 @@
              x:Class="Veterinary.Prism.Views.PetPage"
              BackgroundColor="Silver"
              Title="{Binding Title}">
-    <StackLayout
+    <ScrollView>
+        <StackLayout
     	Padding="10">
         <Frame
         	CornerRadius="20"
@@ -87,5 +88,5 @@
             </ListView.ItemTemplate>
         </ListView>
     </StackLayout>
-
+    </ScrollView>
 </ContentPage>
