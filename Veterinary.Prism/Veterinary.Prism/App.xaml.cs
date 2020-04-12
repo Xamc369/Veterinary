@@ -34,6 +34,7 @@ namespace Veterinary.Prism
             containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();
             containerRegistry.RegisterForNavigation<PetsPage, PetsPageViewModel>();
             containerRegistry.RegisterForNavigation<PetPage, PetPageViewModel>();
+            containerRegistry.RegisterForNavigation<HistoriesPage, HistoriesPageViewModel>();
         }
     }
 }
