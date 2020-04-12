@@ -18,6 +18,7 @@ namespace Veterinary.Prism.ViewModels
         private bool _isRunning;
         private bool _isEnabled;
         private DelegateCommand _loginCommand;
+        private readonly INavigationService _navigationService;
         private readonly IApiService _apiService;
 
         //CONSTRUCTOR
@@ -26,6 +27,7 @@ namespace Veterinary.Prism.ViewModels
         {
             Title = "Login";
             IsEnabled = true;
+            _navigationService = navigationService;
             _apiService = apiService;
         }
 
@@ -106,7 +108,8 @@ namespace Veterinary.Prism.ViewModels
 
             //IsRunning = false;
             //IsEnabled = true;
-            await App.Current.MainPage.DisplayAlert("Ok", "Fuck Yeahh!!", "Accept");
+            //await App.Current.MainPage.DisplayAlert("Ok", "Fuck Yeahh!!", "Accept");
+            await _navigationService.NavigateAsync("PetsPage");
         }
     }
 }
