@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Veterinary.Common.Models;
 using Veterinary.Common.Service;
+using Veterinary.Models;
 
 namespace Veterinary.Prism.ViewModels
 {
@@ -94,22 +95,35 @@ namespace Veterinary.Prism.ViewModels
                 return;
             }
 
-            //var token = (TokenResponse)response.Result;
+            var token = (TokenResponse)response.Result;
+            var response2 = await _apiService.GetOwnerByEmailAsync(url,
+                "/api",
+                "/Owners/GetOwnerByEmail",
+                "bearer",
+                token.Token,
+                Email);
 
-            //var response2 = await _apiService.GetOwnerByEmail(
-            //    url,
-            //    "/api",
-            //    "/Owners/GetOwnerByEmail",
-            //    "bearer",
-            //    token.Token,
-            //    Email);
+            if (!response2.IsSuccess)
+            {
+                IsEnabled = true;
+                IsRunning = false;
+                await App.Current.MainPage.DisplayAlert("Error", "This user have a problem, call support", "Accept");
+                Password = string.Empty;
+                return;
+            }
 
-            //var owner = (OwnerResponse)response2.Result;
+            var owner = (OwnerResponse)response2.Result;
+            var parameters = new NavigationParameters
+            {
+                {"owner", owner }
+            };
 
-            //IsRunning = false;
-            //IsEnabled = true;
+
+            IsRunning = false;
+            IsEnabled = true;
             //await App.Current.MainPage.DisplayAlert("Ok", "Fuck Yeahh!!", "Accept");
-            await _navigationService.NavigateAsync("PetsPage");
+            await _navigationService.NavigateAsync("PetsPage", parameters);
+            Password = string.Empty;
         }
     }
 }

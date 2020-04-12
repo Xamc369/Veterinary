@@ -5,7 +5,7 @@ namespace Veterinary.Common.Service
 {
     public interface IApiService
     {
-        Task<Response> GetOwnerByEmail(
+        Task<Response> GetOwnerByEmailAsync(
             string urlBase,
             string servicePrefix,
             string controller,
