@@ -16,7 +16,7 @@ namespace Veterinary.Models
 
         public string Remarks { get; set; }
 
-        //public DateTime DateLocal => 
+        public DateTime DateLocal => Date.ToLocalTime();
 
     }
 }
