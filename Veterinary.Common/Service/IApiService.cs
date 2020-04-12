@@ -1,11 +1,12 @@
 ﻿using System.Threading.Tasks;
 using Veterinary.Common.Models;
+using Veterinary.Models;
 
 namespace Veterinary.Common.Service
 {
     public interface IApiService
     {
-        Task<Response> GetOwnerByEmailAsync(
+        Task<Response<OwnerResponse>> GetOwnerByEmailAsync(
             string urlBase,
             string servicePrefix,
             string controller,
@@ -13,11 +14,13 @@ namespace Veterinary.Common.Service
             string accessToken,
             string email);
 
-        Task<Response> GetTokenAsync(
+        Task<Response<TokenResponse>> GetTokenAsync(
             string urlBase,
             string servicePrefix,
             string controller,
             TokenRequest request);
+
+        Task<bool> CheckConnection(string url);
 
     }
 }
