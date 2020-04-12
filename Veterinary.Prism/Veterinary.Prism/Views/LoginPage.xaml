@@ -23,8 +23,12 @@
             VerticalOptions="CenterAndExpand"
             IsRunning="{Binding IsRunning}"/>
         <Button
+            BorderRadius="23"
+            BackgroundColor="Navy"
+            TextColor="White"
             IsEnabled="{Binding IsEnabled}"
             Command="{Binding LoginCommand}"
+            HeightRequest="46"
             Text="Login"/>
     </StackLayout>
 </ContentPage>
