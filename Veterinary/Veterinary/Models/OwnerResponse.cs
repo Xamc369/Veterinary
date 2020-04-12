@@ -21,5 +21,7 @@ namespace Veterinary.Models
 
         public ICollection<PetResponse> Pets { get; set; }
 
+
+
     }
 }
