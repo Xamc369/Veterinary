@@ -1,8 +1,10 @@
-﻿using Prism.Commands;
+﻿using Newtonsoft.Json;
+using Prism.Commands;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Veterinary.Common.Helpers;
 using Veterinary.Models;
 
 namespace Veterinary.Prism.ViewModels
@@ -21,9 +23,8 @@ namespace Veterinary.Prism.ViewModels
 
         private async void SelectPet()
         {
-            var parameters = new NavigationParameters();
-            parameters.Add("pet", this);
-            await _navigationService.NavigateAsync("HistoriesPage",parameters);
+            Settings.Pet = JsonConvert.SerializeObject(this);
+            await _navigationService.NavigateAsync("PetTabbedPage");
         }
     }
 }

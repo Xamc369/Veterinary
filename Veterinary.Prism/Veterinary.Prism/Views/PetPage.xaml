@@ -5,6 +5,7 @@
              xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="Veterinary.Prism.Views.PetPage"
+             IconImageSource="ic_pets"
              BackgroundColor="Silver"
              Title="{Binding Title}">
     <ScrollView>
@@ -43,7 +44,7 @@
                 	Text="{Binding Pet.Remarks, StringFormat='Remarks: {0}'}"/>
             </StackLayout>
         </Frame>
-        <Label
+        <!--<Label
         	FontAttributes="Bold"
         	FontSize="Large"
         	Text="History"
@@ -86,7 +87,7 @@
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
-        </ListView>
+        </ListView>-->
     </StackLayout>
     </ScrollView>
 </ContentPage>
