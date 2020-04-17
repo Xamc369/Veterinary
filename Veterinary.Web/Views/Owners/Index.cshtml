@@ -4,62 +4,77 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Owners</h2>
-
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+<br />
 <p>
-    <a asp-action="Create" class="btn btn-primary">Create New</a>
+    <a asp-action="Create" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i> Create New</a>
 </p>
-<table class="table table-bordered">
-    <thead class="thead-dark">
-        <tr>
-            <th>@Html.DisplayNameFor(model => model.User.Document)</th>
-            <th>@Html.DisplayNameFor(model => model.User.FullName)</th>
-            <th>@Html.DisplayNameFor(model => model.User.Email)</th>
-            <th>@Html.DisplayNameFor(model => model.User.Address)</th>
-            <th>@Html.DisplayNameFor(model => model.User.PhoneNumber)</th>
-            <th>Pets Number</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@Html.DisplayFor(modelItem => item.User.Document)</td>
-                <td>@Html.DisplayFor(modelItem => item.User.FullName)</td>
-                <td>@Html.DisplayFor(modelItem => item.User.Email)</td>
-                <td>@Html.DisplayFor(modelItem => item.User.Address)</td>
-                <td>@Html.DisplayFor(modelItem => item.User.PhoneNumber)</td>
-                <td>@Html.DisplayFor(modelItem => item.Pets.Count)</td>
 
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">Details</a> |
-                    <button data-id="@item.Id" class="btn btn-danger deleteItem" data-toggle="modal" data-target="#deleteDialog">Delete</button>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Owners</h3>
+            </div>
+            <div class="panel-body">
+                <table class="table table-hover table-responsive table-striped" id="MyTable">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.User.Document)</th>
+                            <th>@Html.DisplayNameFor(model => model.User.FullName)</th>
+                            <th>@Html.DisplayNameFor(model => model.User.Email)</th>
+                            <th>@Html.DisplayNameFor(model => model.User.Address)</th>
+                            <th>@Html.DisplayNameFor(model => model.User.PhoneNumber)</th>
+                            <th>Pets Number</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.User.Document)</td>
+                                <td>@Html.DisplayFor(modelItem => item.User.FullName)</td>
+                                <td>@Html.DisplayFor(modelItem => item.User.Email)</td>
+                                <td>@Html.DisplayFor(modelItem => item.User.Address)</td>
+                                <td>@Html.DisplayFor(modelItem => item.User.PhoneNumber)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Pets.Count)</td>
+
+                                <td>
+                                    <a asp-action="Edit" class="btn btn-default" asp-route-id="@item.Id"><i class="glyphicon-pencil"></i> </a>
+                                    <a asp-action="Details" class="btn btn-default" asp-route-id="@item.Id"><i class="glyphicon glyphicon-list"> </i> </a>
+                                    <button data-id="@item.Id" class="btn btn-danger deleteItem" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 
 <partial name="_Deletedialog" />
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
+    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
     <script type="text/javascript">
-    	$(document).ready(function () {
-        	// Delete item
-        	var item_to_delete;
+        $(document).ready(function () {
+            $('#MyTable').DataTable();
+            // Delete item
+            var item_to_delete;
 
-        	$('.deleteItem').click((e) => {
-            	item_to_delete = e.currentTarget.dataset.id;
-        	});
+            $('.deleteItem').click((e) => {
+                item_to_delete = e.currentTarget.dataset.id;
+            });
 
-        	$("#btnYesDelete").click(function () {
-            	window.location.href = '/Owners/Delete/' + item_to_delete;
-        	});
-    	});
+            $("#btnYesDelete").click(function () {
+                window.location.href = '/Owners/Delete/' + item_to_delete;
+            });
+        });
     </script>
 }
 
