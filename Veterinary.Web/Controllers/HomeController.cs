@@ -311,36 +311,37 @@ namespace Veterinary.Web.Controllers
                 return NotFound();
             }
 
-            var view = new AgendaViewModel
+            var model = new AgendaViewModel
             {
                 Id = agenda.Id,
                 OwnerId = owner.Id,
                 Pets = _combosHelper.GetComboPets(owner.Id)
             };
 
-            return View(view);
+            return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Assing(AgendaViewModel view)
+        public async Task<IActionResult> Assing(AgendaViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var agenda = await _dataContext.Agendas.FindAsync(view.Id);
+                var agenda = await _dataContext.Agendas.FindAsync(model.Id);
                 if (agenda != null)
                 {
                     agenda.IsAvailable = false;
-                    agenda.Owner = await _dataContext.Owners.FindAsync(view.OwnerId);
-                    agenda.Pet = await _dataContext.Pets.FindAsync(view.PetId);
-                    agenda.Remarks = view.Remarks;
+                    agenda.Owner = await _dataContext.Owners.FindAsync(model.OwnerId);
+                    agenda.Pet = await _dataContext.Pets.FindAsync(model.PetId);
+                    agenda.Remarks = model.Remarks;
                     _dataContext.Agendas.Update(agenda);
                     await _dataContext.SaveChangesAsync();
                     return RedirectToAction(nameof(MyAgenda));
                 }
             }
 
-            return View(view);
+            model.Pets = _combosHelper.GetComboPets(model.Id);
+            return View(model);
         }
 
         [Authorize(Roles = "Customer")]
