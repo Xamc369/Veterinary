@@ -31,6 +31,6 @@ namespace Veterinary.Web.Controllers.API
             return _context.PetTypes;
         }
 
-       
+
     }
 }
