@@ -123,7 +123,7 @@ namespace Veterinary.Web.Controllers.API
                 }
             }
 
-            oldPet.Born = request.Born;
+            oldPet.Born = request.Born.ToUniversalTime();
             oldPet.ImageUrl = imageUrl;
             oldPet.Name = request.Name;
             oldPet.PetType = petType;
@@ -132,7 +132,7 @@ namespace Veterinary.Web.Controllers.API
 
             _dataContext.Pets.Update(oldPet);
             await _dataContext.SaveChangesAsync();
-            return Ok(oldPet);
+            return Ok(_converterHelper.ToPetResponse(oldPet));
         }
     }
 }
