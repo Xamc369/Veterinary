@@ -1,9 +1,11 @@
-﻿using Prism.Commands;
+﻿using Newtonsoft.Json;
+using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Veterinary.Common.Helpers;
 using Veterinary.Common.Models;
 using Veterinary.Common.Service;
 using Veterinary.Models;
@@ -95,8 +97,8 @@ namespace Veterinary.Prism.ViewModels
             };
 
            // var url = App.Current.Resources["UrlAPI"].ToString();
-            var response = await _apiService.GetTokenAsync(url, "/Account", "/CreateToken", request);
-
+            var response = await _apiService.GetTokenAsync(url, "Account", "/CreateToken", request);
+            // en acount /
             if (!response.IsSuccess)
             {
                 IsEnabled = true;
@@ -105,10 +107,10 @@ namespace Veterinary.Prism.ViewModels
                 Password = string.Empty;
                 return;
             }
-
-            var token = (TokenResponse)response.Result;
+            //en api/
+            var token = response.Result;
             var response2 = await _apiService.GetOwnerByEmailAsync(url,
-                "/api",
+                "api",
                 "/Owners/GetOwnerByEmail",
                 "bearer",
                 token.Token,
@@ -122,18 +124,19 @@ namespace Veterinary.Prism.ViewModels
                 Password = string.Empty;
                 return;
             }
+            //(ownerresponse)
 
-            var owner = (OwnerResponse)response2.Result;
-            var parameters = new NavigationParameters
-            {
-                {"owner", owner }
-            };
+            var owner = response2.Result;
 
+            Settings.Owner = JsonConvert.SerializeObject(owner);
+            Settings.Token = JsonConvert.SerializeObject(token);
 
             IsRunning = false;
             IsEnabled = true;
+
             //await App.Current.MainPage.DisplayAlert("Ok", "Fuck Yeahh!!", "Accept");
-            await _navigationService.NavigateAsync("PetsPage", parameters);
+            //await _navigationService.NavigateAsync("PetsPage");
+            await _navigationService.NavigateAsync("/VeterinaryMasterDetailPage/NavigationPage/PetsPage");
             Password = string.Empty;
         }
     }
