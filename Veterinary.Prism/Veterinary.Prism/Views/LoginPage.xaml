@@ -28,15 +28,39 @@
             IsPassword="True"
             Placeholder="Enter your password..."
             Text="{Binding Password}"/>
-                <Button
-            BorderRadius="23"
-            BackgroundColor="Navy"
-            TextColor="White"
-            IsEnabled="{Binding IsEnabled}"
-            Command="{Binding LoginCommand}"
-            HeightRequest="46"
-            Text="Login"
-            VerticalOptions="EndAndExpand"/>
+                <StackLayout
+	                HorizontalOptions="Center"
+	                Orientation="Horizontal">
+                    <Label
+    	            Text="Rememberme in this device"
+                     VerticalOptions="Center"/>
+                    <Switch
+    	            IsToggled="{Binding IsRemember}"/>
+                </StackLayout>
+                <Label
+	                HorizontalOptions="Center"
+	                Text="Forgot your password?"
+	                TextColor="{StaticResource colorAccent}">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ForgotPasswordCommand}"/>
+                    </Label.GestureRecognizers>
+                </Label>
+
+                <StackLayout
+            	Orientation="Horizontal"
+                VerticalOptions="EndAndExpand">
+                    <Button
+                	Command="{Binding LoginCommand}"
+                	HorizontalOptions="FillAndExpand"
+                	IsEnabled="{Binding IsEnabled}"
+                	Text="Login"/>
+                    <Button
+                	Command="{Binding RegisterCommand}"
+                	HorizontalOptions="FillAndExpand"
+                	IsEnabled="{Binding IsEnabled}"
+                	Style="{StaticResource secondaryButton}"
+                	Text="Register"/>
+                </StackLayout>
             </StackLayout>
             <busyindicator:SfBusyIndicator  
                 	AnimationType="Gear"

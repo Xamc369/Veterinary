@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<prism:PrismApplication xmlns="http://xamarin.com/schemas/2014/forms"
+<prism:PrismApplication
+    xmlns:drawing="clr-namespace:System.Drawing;assembly=netstandard" xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="clr-namespace:Prism.DryIoc;assembly=Prism.DryIoc.Forms"
              x:Class="Veterinary.Prism.App">
@@ -8,6 +9,36 @@
 
             <!-- Parameters -->
             <x:String x:Key="UrlAPI">https://veterinaryweb.azurewebsites.net</x:String>
+
+            <!-- Colors -->
+            <Color x:Key="colorBackgroud">#F2F2F2</Color>
+            <Color x:Key="colorPrimary">#0468BF</Color>
+            <Color x:Key="ColorSecondary">#8D07F6</Color>
+            <Color x:Key="colorDanger">#F2055C</Color>
+            <Color x:Key="colorAccent">#BF4904</Color>
+            <Color x:Key="colorFont">#000000</Color>
+            <Color x:Key="colorFontInverse">#F2F2F2</Color>
+
+
+            <!-- Styles -->
+            <Style TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource colorPrimary}" />
+                <Setter Property="BorderRadius" Value="23" />
+                <Setter Property="HeightRequest" Value="46" />
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+                <Setter Property="TextColor" Value="{StaticResource colorFontInverse}" />
+            </Style>
+
+            <!-- Styles -->
+            <Style TargetType="Label">
+                <Setter Property="TextColor" Value="{StaticResource colorPrimary}" />
+            </Style>
+
+            <Style x:Key="secondaryButton" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource ColorSecondary}" />
+                <Setter Property="TextColor" Value="{StaticResource colorFontInverse}" />
+            </Style>
+
 
         </ResourceDictionary>
     </Application.Resources>

@@ -23,6 +23,7 @@ namespace Veterinary.Prism.ViewModels
         private DelegateCommand _loginCommand;
         private readonly INavigationService _navigationService;
         private readonly IApiService _apiService;
+        private DelegateCommand _registerCommand;
 
         //CONSTRUCTOR
         public LoginPageViewModel(INavigationService navigationService,
@@ -30,13 +31,21 @@ namespace Veterinary.Prism.ViewModels
         {
             Title = "Login";
             IsEnabled = true;
+            IsRemember = true;
             _navigationService = navigationService;
             _apiService = apiService;
         }
 
         //PROPIEDADES
         public DelegateCommand LoginCommand => _loginCommand ?? (_loginCommand = new DelegateCommand(Login));
+        public DelegateCommand RegisterCommand => _registerCommand ?? (_registerCommand = new DelegateCommand(Register));
 
+        private bool _isRemember;
+        public bool IsRemember
+        {
+            get => _isRemember;
+            set => SetProperty(ref _isRemember, value);
+        }
 
         public string Email { get; set; }
 
@@ -138,6 +147,11 @@ namespace Veterinary.Prism.ViewModels
             //await _navigationService.NavigateAsync("PetsPage");
             await _navigationService.NavigateAsync("/VeterinaryMasterDetailPage/NavigationPage/PetsPage");
             Password = string.Empty;
+        }
+
+        private async void Register()
+        {
+            await _navigationService.NavigateAsync("RegisterPage");
         }
     }
 }

@@ -22,5 +22,11 @@ namespace Veterinary.Common.Service
 
         Task<bool> CheckConnection(string url);
 
+        Task<Response<object>> RegisterUserAsync(
+            string urlBase,
+            string servicePrefix,
+            string controller,
+            UserRequest userRequest);
+
     }
 }
