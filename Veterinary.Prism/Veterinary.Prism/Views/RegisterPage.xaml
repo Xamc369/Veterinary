@@ -84,6 +84,7 @@
                     	Grid.Row="5"
                     	Grid.Column="1"
                     	Placeholder="Enter your phonenumber..."
+                        Keyboard="Telephone"
                     	Text="{Binding Phone}"/>
 
                     <Label

@@ -118,7 +118,7 @@ namespace Veterinary.Prism.ViewModels
 
             if (string.IsNullOrEmpty(FirstName))
             {
-                await App.Current.MainPage.DisplayAlert("Error", "You must enter a firsname.", "Accept");
+                await App.Current.MainPage.DisplayAlert("Error", "You must enter a firstname.", "Accept");
                 return false;
             }
 

@@ -24,6 +24,7 @@ namespace Veterinary.Prism.ViewModels
         private readonly INavigationService _navigationService;
         private readonly IApiService _apiService;
         private DelegateCommand _registerCommand;
+        private DelegateCommand _forgotPasswordCommand;
 
         //CONSTRUCTOR
         public LoginPageViewModel(INavigationService navigationService,
@@ -38,6 +39,8 @@ namespace Veterinary.Prism.ViewModels
 
         //PROPIEDADES
         public DelegateCommand LoginCommand => _loginCommand ?? (_loginCommand = new DelegateCommand(Login));
+        public DelegateCommand ForgotPasswordCommand => _forgotPasswordCommand ?? (_forgotPasswordCommand = new DelegateCommand(ForgotPassword));
+
         public DelegateCommand RegisterCommand => _registerCommand ?? (_registerCommand = new DelegateCommand(Register));
 
         private bool _isRemember;
@@ -152,6 +155,11 @@ namespace Veterinary.Prism.ViewModels
         private async void Register()
         {
             await _navigationService.NavigateAsync("RegisterPage");
+        }
+
+        private async void ForgotPassword()
+        {
+            await _navigationService.NavigateAsync("RememberPasswordPage");
         }
     }
 }
