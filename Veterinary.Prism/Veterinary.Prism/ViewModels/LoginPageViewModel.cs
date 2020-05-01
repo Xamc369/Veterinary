@@ -142,6 +142,7 @@ namespace Veterinary.Prism.ViewModels
 
             Settings.Owner = JsonConvert.SerializeObject(owner);
             Settings.Token = JsonConvert.SerializeObject(token);
+            Settings.IsRemembered = IsRemember;
 
             IsRunning = false;
             IsEnabled = true;

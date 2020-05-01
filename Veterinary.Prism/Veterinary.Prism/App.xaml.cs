@@ -1,5 +1,9 @@
-﻿using Prism;
+﻿using Newtonsoft.Json;
+using Prism;
 using Prism.Ioc;
+using System;
+using Veterinary.Common.Helpers;
+using Veterinary.Common.Models;
 using Veterinary.Common.Service;
 using Veterinary.Prism.ViewModels;
 using Veterinary.Prism.Views;
@@ -25,7 +29,16 @@ namespace Veterinary.Prism
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MjQwMjI2QDMxMzgyZTMxMmUzMFhwbTRpd1QzeWpyQVpEdS9xY0xRckZrRXlGTHBmWFI1K2pGcGtWcmdjOFk9");
             InitializeComponent();
 
-            await NavigationService.NavigateAsync("NavigationPage/LoginPage");
+            var token = JsonConvert.DeserializeObject<TokenResponse>(Settings.Token);
+            if (Settings.IsRemembered && token?.Expiration > DateTime.Now)
+            {
+                await NavigationService.NavigateAsync("/VeterinaryMasterDetailPage/NavigationPage/PetsPage");
+            }
+            else
+            {
+                await NavigationService.NavigateAsync("/NavigationPage/LoginPage");
+            }
+
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)

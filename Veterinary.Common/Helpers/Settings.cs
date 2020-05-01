@@ -8,6 +8,8 @@ namespace Veterinary.Common.Helpers
         private const string _pet = "Pet";
         private const string _token = "Token";
         private const string _owner = "Owner";
+        private const string _isRemembered = "IsRemembered";
+        private static readonly bool _boolDefault = false;
         private static readonly string _stringDefault = string.Empty;
 
         private static ISettings AppSettings => CrossSettings.Current;
@@ -30,6 +32,13 @@ namespace Veterinary.Common.Helpers
             get => AppSettings.GetValueOrDefault(_pet, _stringDefault);
             set => AppSettings.AddOrUpdateValue(_pet, value);
         }
+
+        public static bool IsRemembered
+        {
+            get => AppSettings.GetValueOrDefault(_isRemembered, _boolDefault);
+            set => AppSettings.AddOrUpdateValue(_isRemembered, value);
+        }
+
     }
 }
 
