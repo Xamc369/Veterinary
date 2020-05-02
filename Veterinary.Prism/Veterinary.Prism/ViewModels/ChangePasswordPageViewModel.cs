@@ -13,35 +13,31 @@ using Veterinary.Models;
 
 namespace Veterinary.Prism.ViewModels
 {
-    public class ProfilePageViewModel : ViewModelBase
+    public class ChangePasswordPageViewModel : ViewModelBase
     {
         private readonly INavigationService _navigationService;
         private readonly IApiService _apiService;
         private bool _isRunning;
         private bool _isEnabled;
-        private OwnerResponse _owner;
-        private DelegateCommand _saveCommand;
         private DelegateCommand _changePasswordCommand;
 
-        public ProfilePageViewModel(INavigationService navigationService,
-                                    IApiService apiService) : base(navigationService)
+        public ChangePasswordPageViewModel(
+            INavigationService navigationService,
+            IApiService apiService) : base(navigationService)
         {
-            Title = "Edit Profile";
-            IsEnabled = true;
-            Owner = JsonConvert.DeserializeObject<OwnerResponse>(Settings.Owner);
             _navigationService = navigationService;
             _apiService = apiService;
+            IsEnabled = true;
+            Title = "Change Password";
         }
-
-        public DelegateCommand SaveCommand => _saveCommand ?? (_saveCommand = new DelegateCommand(Save));
 
         public DelegateCommand ChangePasswordCommand => _changePasswordCommand ?? (_changePasswordCommand = new DelegateCommand(ChangePassword));
 
-        public OwnerResponse Owner
-        {
-            get => _owner;
-            set => SetProperty(ref _owner, value);
-        }
+        public string CurrentPassword { get; set; }
+
+        public string NewPassword { get; set; }
+
+        public string PasswordConfirm { get; set; }
 
         public bool IsRunning
         {
@@ -55,7 +51,7 @@ namespace Veterinary.Prism.ViewModels
             set => SetProperty(ref _isEnabled, value);
         }
 
-        private async void Save()
+        private async void ChangePassword()
         {
             var isValid = await ValidateData();
             if (!isValid)
@@ -66,25 +62,22 @@ namespace Veterinary.Prism.ViewModels
             IsRunning = true;
             IsEnabled = false;
 
-            var userRequest = new UserRequest
-            {
-                Address = Owner.Address,
-                Document = Owner.Document,
-                Email = Owner.Email,
-                FirstName = Owner.FirstName,
-                LastName = Owner.LastName,
-                Password = "123456", // It doesn't matter what is sent here. It is only for the model to be valid
-                Phone = Owner.PhoneNumber
-            };
-
+            var owner = JsonConvert.DeserializeObject<OwnerResponse>(Settings.Owner);
             var token = JsonConvert.DeserializeObject<TokenResponse>(Settings.Token);
 
+            var request = new ChangePasswordRequest
+            {
+                Email = owner.Email,
+                NewPassword = NewPassword,
+                OldPassword = CurrentPassword
+            };
+
             var url = App.Current.Resources["UrlAPI"].ToString();
-            var response = await _apiService.PutAsync(
+            var response = await _apiService.ChangePasswordAsync(
                 url,
                 "/api",
-                "/Account",
-                userRequest,
+                "/Account/ChangePassword",
+                request,
                 "bearer",
                 token.Token);
 
@@ -100,49 +93,55 @@ namespace Veterinary.Prism.ViewModels
                 return;
             }
 
-            Settings.Owner = JsonConvert.SerializeObject(Owner);
-
             await App.Current.MainPage.DisplayAlert(
                 "Ok",
-                "User updated succesfully",
+                response.Message,
                 "Accept");
+
+            await _navigationService.GoBackAsync();
 
         }
 
         private async Task<bool> ValidateData()
         {
-            if (string.IsNullOrEmpty(Owner.Document))
+            if (string.IsNullOrEmpty(CurrentPassword))
             {
-                await App.Current.MainPage.DisplayAlert("Error", "You must enter a document.", "Accept");
+                await App.Current.MainPage.DisplayAlert(
+                    "Error",
+                    "You must enter your current password",
+                    "Accept");
                 return false;
             }
 
-            if (string.IsNullOrEmpty(Owner.FirstName))
+            if (string.IsNullOrEmpty(NewPassword) || NewPassword?.Length < 6)
             {
-                await App.Current.MainPage.DisplayAlert("Error", "You must enter a First Name.", "Accept");
+                await App.Current.MainPage.DisplayAlert(
+                    "Error",
+                    "You must enter a new password at least 6 characters",
+                    "Accept");
                 return false;
             }
 
-            if (string.IsNullOrEmpty(Owner.LastName))
+            if (string.IsNullOrEmpty(PasswordConfirm))
             {
-                await App.Current.MainPage.DisplayAlert("Error", "You must enter a Last Name.", "Accept");
+                await App.Current.MainPage.DisplayAlert(
+                    "Error",
+                    "You must enter a password confirm.",
+                    "Accept");
                 return false;
             }
 
-            if (string.IsNullOrEmpty(Owner.Address))
+            if (!NewPassword.Equals(PasswordConfirm))
             {
-                await App.Current.MainPage.DisplayAlert("Error", "You must enter an Address.", "Accept");
+                await App.Current.MainPage.DisplayAlert(
+                    "Error",
+                    "The new password and confirmation does not match.",
+                    "Accept");
                 return false;
             }
 
             return true;
         }
-
-        private async void ChangePassword()
-        {
-            await _navigationService.NavigateAsync("ChangePasswordPage");
-        }
-
     }
 
 }
