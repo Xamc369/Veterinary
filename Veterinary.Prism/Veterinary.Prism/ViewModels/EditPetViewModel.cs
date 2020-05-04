@@ -1,10 +1,15 @@
 ﻿
+using Newtonsoft.Json;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
+using Veterinary.Common.Helpers;
+using Veterinary.Common.Models;
+using Veterinary.Common.Service;
 using Veterinary.Models;
 using Xamarin.Forms;
 
@@ -17,11 +22,18 @@ namespace Veterinary.Prism.ViewModels
         private bool _isRunning;
         private bool _isEnabled;
         private bool _isEdit;
+        private readonly INavigationService _navigationService;
+        private readonly IApiService _apiService;
+        private ObservableCollection<PetTypeResponse> _petTypes;
+        private PetTypeResponse _petType;
 
 
-        public EditPetViewModel(INavigationService navigationService) : base(navigationService)
+        public EditPetViewModel(INavigationService navigationService,
+                                IApiService apiService) : base(navigationService)
         {
             IsEnabled = true;
+            _navigationService = navigationService;
+            _apiService = apiService;
         }
 
         public bool IsRunning
@@ -54,6 +66,19 @@ namespace Veterinary.Prism.ViewModels
             set => SetProperty(ref _imageSource, value);
         }
 
+        public ObservableCollection<PetTypeResponse> PetTypes
+        {
+            get => _petTypes;
+            set => SetProperty(ref _petTypes, value);
+        }
+
+        public PetTypeResponse PetType
+        {
+            get => _petType;
+            set => SetProperty(ref _petType, value);
+        }
+
+
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
@@ -73,7 +98,50 @@ namespace Veterinary.Prism.ViewModels
                 IsEdit = false;
                 Title = "New Pet";
             }
+
+            LoadPetTypesAsync();
         }
+
+        private async void LoadPetTypesAsync()
+        {
+            IsEnabled = false;
+
+            var url = App.Current.Resources["UrlAPI"].ToString();
+
+            var connection = await _apiService.CheckConnection(url);
+            if (!connection)
+            {
+                IsEnabled = true;
+                IsRunning = false;
+                await App.Current.MainPage.DisplayAlert("Error", "Check the internet connection.", "Accept");
+                await _navigationService.GoBackAsync();
+                return;
+            }
+
+            
+            var token = JsonConvert.DeserializeObject<TokenResponse>(Settings.Token);
+
+            var response = await _apiService.GetListAsync<PetTypeResponse>(url, "/api", "/PetTypes", "bearer", token.Token);
+
+            IsRunning = false;
+            IsEnabled = true;
+
+            if (!response.IsSuccess)
+            {
+                await App.Current.MainPage.DisplayAlert("Error", "Getting pet type list, try later", "Accept");
+                await _navigationService.GoBackAsync();
+                return;
+            }
+
+            var petTypes = (List<PetTypeResponse>)response.Result;
+            PetTypes = new ObservableCollection<PetTypeResponse>(petTypes);
+
+            if (!string.IsNullOrEmpty(Pet.PetType))
+            {
+                PetType = PetTypes.FirstOrDefault(pt => pt.Name == Pet.PetType);
+            }
+        }
+
 
     }
 }

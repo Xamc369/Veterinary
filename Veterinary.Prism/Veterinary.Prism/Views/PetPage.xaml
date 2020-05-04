@@ -8,16 +8,17 @@
              IconImageSource="ic_pets"
              BackgroundColor="Silver"
              Title="{Binding Title}">
-    <ScrollView>
-        <StackLayout
-    	Padding="10">
-        <Frame
+    <StackLayout
+        Padding="10">
+        <ScrollView>
+            <StackLayout>
+                <Frame
         	CornerRadius="20"
         	HasShadow="True">
-            <StackLayout>
-                <StackLayout
+                    <StackLayout>
+                        <StackLayout
                 	Orientation="Horizontal">
-                    <ffimageloading:CachedImage
+                            <ffimageloading:CachedImage
     	                Source="{Binding Pet.ImageUrl}"
     	                LoadingPlaceholder= "LoaderImage"
     	                ErrorPlaceholder= "ErrorImage"
@@ -25,26 +26,26 @@
     	                RetryCount= "3"
     	                RetryDelay= "600"
     	                DownsampleToViewSize = "true"
-    	                WidthRequest="250"/>            
-                    <StackLayout>
-                        <Label
+    	                WidthRequest="250"/>
+                            <StackLayout>
+                                <Label
                         	FontAttributes="Bold"
                         	FontSize="Large"
                         	Text="{Binding Pet.Name}"/>
-                        <Label
+                                <Label
                         	Text="{Binding Pet.Race, StringFormat='Race: {0}'}"/>
-                        <Label
+                                <Label
                         	Text="{Binding Pet.Born, StringFormat='Born: {0:yyyy/MM/dd}'}"/>
-                        <Label
+                                <Label
                         	Text="{Binding Pet.PetType, StringFormat='Type: {0}'}"/>
-                    </StackLayout>
-                </StackLayout>
-                <Label
+                            </StackLayout>
+                        </StackLayout>
+                        <Label
                 	BackgroundColor="White"
                 	Text="{Binding Pet.Remarks, StringFormat='Remarks: {0}'}"/>
-            </StackLayout>
-        </Frame>
-        <!--<Label
+                    </StackLayout>
+                </Frame>
+                <!--<Label
         	FontAttributes="Bold"
         	FontSize="Large"
         	Text="History"
@@ -88,6 +89,11 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>-->
+            </StackLayout>
+        </ScrollView>
+        <Button
+            Command="{Binding EditPetCommand}"
+            Text="Edit Pet"></Button>
     </StackLayout>
-    </ScrollView>
+    
 </ContentPage>
