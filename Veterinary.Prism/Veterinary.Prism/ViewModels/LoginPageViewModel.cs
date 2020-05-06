@@ -9,6 +9,8 @@ using Veterinary.Common.Helpers;
 using Veterinary.Common.Models;
 using Veterinary.Common.Service;
 using Veterinary.Models;
+using Veterinary.Prism.Helpers;
+using Xamarin.Forms;
 
 namespace Veterinary.Prism.ViewModels
 {
@@ -79,7 +81,7 @@ namespace Veterinary.Prism.ViewModels
         {
             if (string.IsNullOrEmpty(Email))
             {
-                await App.Current.MainPage.DisplayAlert("Error","You must enter an email","Accept");
+                await Application.Current.MainPage.DisplayAlert(Languages.Error, Languages.EmailError, Languages.Accept);
                 return;
             }
             if (string.IsNullOrEmpty(Password))
