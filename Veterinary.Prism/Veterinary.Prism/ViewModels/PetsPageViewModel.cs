@@ -21,6 +21,7 @@ namespace Veterinary.Prism.ViewModels
         private ObservableCollection<PetItemViewModel> _pets;
         private DelegateCommand _addPetCommand;
 
+
         public PetsPageViewModel(INavigationService navigationService,
                                  IApiService apiService) : base(navigationService)
         {

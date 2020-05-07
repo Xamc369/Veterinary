@@ -9,10 +9,12 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using Veterinary.Common.Helpers;
 using Veterinary.Common.Models;
 using Veterinary.Common.Service;
 using Veterinary.Models;
+using Veterinary.Prism.Helpers;
 using Xamarin.Forms;
 
 namespace Veterinary.Prism.ViewModels
@@ -30,7 +32,7 @@ namespace Veterinary.Prism.ViewModels
         private PetTypeResponse _petType;
         private MediaFile _file;
         private DelegateCommand _changeImageCommand;
-
+        private DelegateCommand _saveCommand;
 
         public EditPetViewModel(INavigationService navigationService,
                                 IApiService apiService) : base(navigationService)
@@ -41,6 +43,7 @@ namespace Veterinary.Prism.ViewModels
         }
 
         public DelegateCommand ChangeImageCommand => _changeImageCommand ?? (_changeImageCommand = new DelegateCommand(ChangeImageAsync));
+        public DelegateCommand SaveCommand => _saveCommand ?? (_saveCommand = new DelegateCommand(SaveAsync));
 
         public bool IsRunning
         {
@@ -190,6 +193,89 @@ namespace Veterinary.Prism.ViewModels
                     return stream;
                 });
             }
+        }
+
+        private async void SaveAsync()
+        {
+            var isValid = await ValidateData();
+            if (!isValid)
+            {
+                return;
+            }
+
+            IsRunning = true;
+            IsEnabled = false;
+
+            var url = App.Current.Resources["UrlAPI"].ToString();
+            var token = JsonConvert.DeserializeObject<TokenResponse>(Settings.Token);
+            var owner = JsonConvert.DeserializeObject<OwnerResponse>(Settings.Owner);
+
+            byte[] imageArray = null;
+            if (_file != null)
+            {
+                imageArray = FilesHelper.ReadFully(_file.GetStream());
+            }
+
+            var petRequest = new PetRequest
+            {
+                Born = Pet.Born,
+                Id = Pet.Id,
+                ImageArray = imageArray,
+                Name = Pet.Name,
+                OwnerId = owner.Id,
+                PetTypeId = PetType.Id,
+                Race = Pet.Race,
+                Remarks = Pet.Remarks
+            };
+
+            Response<object> response;
+            if (IsEdit)
+            {
+                response = await _apiService.PutAsync(url, "/api", "/Pets", petRequest.Id, petRequest, "bearer", token.Token);
+            }
+            else
+            {
+                response = await _apiService.PostAsync(url, "/api", "/Pets", petRequest, "bearer", token.Token);
+            }
+
+            IsRunning = false;
+            IsEnabled = true;
+
+            if (!response.IsSuccess)
+            {
+                await App.Current.MainPage.DisplayAlert(Languages.Error, response.Message, Languages.Accept);
+                return;
+            }
+
+            await App.Current.MainPage.DisplayAlert(
+                Languages.Error,
+                string.Format(Languages.CreateEditPetConfirm, IsEdit ? Languages.Edited : Languages.Created),
+                Languages.Accept);
+
+            await _navigationService.GoBackToRootAsync();
+        }
+
+        private async Task<bool> ValidateData()
+        {
+            if (string.IsNullOrEmpty(Pet.Name))
+            {
+                await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.NameError, Languages.Accept);
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(Pet.Race))
+            {
+                await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.RaceError, Languages.Accept);
+                return false;
+            }
+
+            if (PetType == null)
+            {
+                await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.PetTypeError, Languages.Accept);
+                return false;
+            }
+
+            return true;
         }
 
     }

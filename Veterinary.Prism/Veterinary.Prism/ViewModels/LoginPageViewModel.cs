@@ -32,7 +32,7 @@ namespace Veterinary.Prism.ViewModels
         public LoginPageViewModel(INavigationService navigationService,
                                   IApiService apiService) : base (navigationService)
         {
-            Title = "Login";
+            Title = Languages.Login;
             IsEnabled = true;
             IsRemember = true;
             _navigationService = navigationService;
@@ -86,7 +86,7 @@ namespace Veterinary.Prism.ViewModels
             }
             if (string.IsNullOrEmpty(Password))
             {
-                await App.Current.MainPage.DisplayAlert("Error", "You must enter a password", "Accept");
+                await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.PasswordError, Languages.Accept);
                 return;
             }
 
@@ -99,7 +99,7 @@ namespace Veterinary.Prism.ViewModels
             {
                 IsEnabled = true;
                 IsRunning = false;
-                await App.Current.MainPage.DisplayAlert("Error", "Check the internet connection.", "Accept");
+                await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.Conection, Languages.Accept);
                 return;
             }
 
@@ -117,7 +117,7 @@ namespace Veterinary.Prism.ViewModels
             {
                 IsEnabled = true;
                 IsRunning = false;
-                await App.Current.MainPage.DisplayAlert("Error", "Email or password incorrect.", "Accept");
+                await App.Current.MainPage.DisplayAlert(Languages.Error, Languages.LoginError, Languages.Accept);
                 Password = string.Empty;
                 return;
             }
@@ -134,7 +134,7 @@ namespace Veterinary.Prism.ViewModels
             {
                 IsEnabled = true;
                 IsRunning = false;
-                await App.Current.MainPage.DisplayAlert("Error", "This user have a problem, call support", "Accept");
+                await App.Current.MainPage.DisplayAlert(Languages.Error,Languages.Problem,Languages.Accept);
                 Password = string.Empty;
                 return;
             }
